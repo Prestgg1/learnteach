@@ -1,0 +1,9 @@
+@import "./primevue/tailwind.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+.full-center {
+    @apply flex items-center justify-center;
+}
