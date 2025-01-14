@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@primevue/forms": "^4.2.5",
+    "@primevue/nuxt-module": "4.2.5",
+    "@primevue/themes": "^4.2.5",
+    "@qirolab/nuxt-sanctum-authentication": "0.1.15",
+    "consola": "^3.3.3",
+    "nuxt": "^3.15.1",
+    "tailwindcss-primeui": "^0.3.4",
+    "vue": "latest",
+    "vue-router": "latest",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "nuxt-booster": "^3.1.9",
+    "nuxt-purgecss": "^2.0.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  }
+}

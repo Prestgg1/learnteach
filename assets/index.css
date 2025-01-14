@@ -1,0 +1,21 @@
+@layer tailwind-base, primevue, tailwind-utilities;
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+.full-center {
+    @apply flex items-center justify-center;
+}
+
+.bg-authheader {
+    @apply bg-gradient-to-r from-[#BC8764] to-80% to-[#333333];
+}
+.bg-authmain {
+    @apply md:bg-gradient-to-r bg-gradient-to-b md:to-85% from-[#a2643B] to-black;
+    color: black;
+}
