@@ -67,7 +67,6 @@
 </template>
 
 <script setup>
-const { isLoggedIn, user, logout } = useSanctum();
 const menu = ref();
 const items = ref([
     {

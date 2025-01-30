@@ -12,7 +12,53 @@
                 />Örgen və Örgət</NuxtLink
             >
             
-            <nav>
+            <nav class="flex items-center gap-4 md:gap-8">
+                <!-- Search Bar -->
+                <div class="relative flex gap-2 items-center">
+                    <input
+                        v-model="searchQuery"
+                        type="text"
+                        :class="[
+                            'bg-white/10 rounded-xl px-4 py-2 text-white placeholder-white/50 outline-none transition-all duration-300',
+                            isSearchOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 pointer-events-none'
+                        ]"
+                        placeholder="Blog axtar..."
+                        @keyup.enter="handleSearch"
+                    />
+                    <i
+                        class="pi pi-search rounded-xl font-extrabold text-2xl"
+                        @click="toggleSearch"
+                    />
+                </div>
+
+                <!-- Beğenilen Bloglar Linki -->
+                <NuxtLink 
+                    to="/liked-blogs" 
+                    class="text-white hover:text-orange-500 transition-colors"
+                    :class="{ 'text-orange-500': route.path === '/liked-blogs' }"
+                >
+                    <i 
+                        class="pi text-2xl"
+                        :class="[
+                            route.path === '/liked-blogs' ? 'pi-heart-fill' : 'pi-heart'
+                        ]"
+                    ></i>
+                </NuxtLink>
+                <!-- Chat Link -->
+                <NuxtLink 
+                    to="/chat" 
+                    class="text-white hover:text-orange-500 transition-colors"
+                    :class="{ 'text-orange-500': route.path === '/chat' }"
+                >
+                    <i 
+                        class="pi pi-comment text-2xl"
+                        :class="[
+                            route.path === '/chat' ? 'pi-comment  text-orange-500' : 'pi-comment'
+                        ]"
+                    ></i>
+                </NuxtLink>
+
+                <!-- Auth Buttons / User Menu -->
                 <ul class="flex gap-2" v-if="!isLoggedIn">
                     <NuxtLink to="/register" class="register">
                         <Button
@@ -39,11 +85,9 @@
                         aria-haspopup="true" 
                         aria-controls="overlay_menu"
                     >
-                        <Avatar
-                            :label="user.name.charAt(0)"
-                            class="mr-2"
-                            size="large"
-                        />
+
+
+                        <NuxtImg :src="user.profile_image? user.profile_image : 'https://ui-avatars.com/api/?name=' + user.name+'&background=random'" class="w-10 h-10 rounded-full" />
                     </Button>
                     
                     <TieredMenu 
@@ -62,11 +106,36 @@
 <script setup>
 const { isLoggedIn, user, logout } = useSanctum();
 const menu = ref();
+const router = useRouter();
+const searchQuery = ref('');
+const isSearchOpen = ref(false);
+const route = useRoute();
+
+const toggleSearch = () => {
+    if (isSearchOpen.value && searchQuery.value) {
+        handleSearch();
+    } else {
+        isSearchOpen.value = !isSearchOpen.value;
+        if (isSearchOpen.value) {
+            nextTick(() => {
+                document.querySelector('input').focus();
+            });
+        }
+    }
+};
+
+const handleSearch = () => {
+    if (searchQuery.value.trim()) {
+        router.push(`/search/${encodeURIComponent(searchQuery.value.trim())}`);
+        isSearchOpen.value = false;
+        searchQuery.value = '';
+    }
+};
 
 const handleLogout = async () => {
     try {
         await logout();
-        navigateTo('/login');
+        await router.push('/login');
     } catch (error) {
         console.error('Çıxış edilərkən xəta:', error);
     }
@@ -77,14 +146,14 @@ const items = ref([
         label: 'Profil',
         icon: 'pi pi-user',
         command: () => {
-            navigateTo('/profile');
+            router.push('/profile');
         }
     },
     {
-        label: 'Ayarlar',
+        label: 'Bloglarım',
         icon: 'pi pi-cog',
         command: () => {
-            navigateTo('/settings');
+            router.push('/blogs');
         }
     },
     { separator: true },
@@ -111,5 +180,9 @@ const toggle = (event) => {
 
 :deep(.p-menuitem-icon) {
     margin-right: 0.5rem;
+}
+
+input {
+    backdrop-filter: blur(8px);
 }
 </style>

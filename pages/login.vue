@@ -5,18 +5,15 @@
     </div>
     <Toast />
 
-    <div
-        class="flex flex-col flex-1 md:flex-initial justify-center items-center w-11/12 md:w-auto"
-    >
-        <div
-            class="loginForm w-full min-h-[50vh] gap-4 md:flex-1 flex flex-col md:flex-row md:w-auto bg-white bg-opacity-15 rounded-3xl p-5"
-        >
+    <div class="flex flex-col flex-1 md:flex-initial justify-center items-center w-11/12 md:w-1/2">
+        <div class="loginForm h-[600px] gap-4  flex flex-col md:flex-row bg-white bg-opacity-15 rounded-3xl p-5">
+            <!-- Form Kısmı -->
             <Form
                 v-slot="$form"
                 :initialValues="initialValues"
                 @submit="onFormSubmit"
                 :resolver="loginValidation"
-                class="flex flex-1 flex-col gap-2 md:h-auto w-full md:w-auto justify-around items-center"
+                class="flex flex-1 flex-col gap-10 md:w-1/2 justify-around items-center p-4"
             >
                 <h2 class="text-2xl text-white">Hesaba giriş</h2>
                 <div class="flex flex-col gap-4 w-full">
@@ -35,8 +32,8 @@
                         severity="error"
                         size="small"
                         variant="simple"
-                        >{{ $form.email.error?.message }}</Message
-                    >
+                    >{{ $form.email.error?.message }}</Message>
+                    
                     <FloatLabel variant="in" class="">
                         <InputText
                             id="password"
@@ -53,27 +50,39 @@
                         severity="error"
                         size="small"
                         variant="simple"
-                        >{{ $form.password.error?.message }}</Message
-                    >
+                    >{{ $form.password.error?.message }}</Message>
                 </div>
 
                 <Button
                     :loading="isLoading"
-                    class="bg-black text-white rounded-xl font-bold hover:bg-white hover:text-black"
+                    class="bg-black text-white !border-none rounded-xl font-bold hover:bg-white hover:text-black w-full mt-4"
                     type="submit"
                 >
                     Daxil ol
                 </Button>
             </Form>
 
-            <div class="card hidden md:block">
-                <Image src="/images/slider.png" width="300" height="300" />
-            </div>
+            <!-- Carousel Kısmı -->
+            
+                <AuthCarousel />
+            
         </div>
     </div>
 </template>
 
+<style scoped>
+.loginForm {
+    backdrop-filter: blur(8px);
+}
+
+:deep(.p-float-label) input {
+    width: 100%;
+}
+</style>
+
 <script setup>
+import AuthCarousel from "~/components/AuthCarousel.vue";
+
 definePageMeta({
     layout: "authlayout",
     middleware: "$guest",

@@ -12,6 +12,7 @@ export default {
     extend: {
       colors: {
         second: "#151515",
+        graywhite: "#D9D9D9",
       },
     },
   },
