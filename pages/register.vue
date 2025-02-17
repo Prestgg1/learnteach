@@ -15,10 +15,11 @@
                     useRegisterStore().CheckSteper == 2
                         ? RegisterDetails
                         : useRegisterStore().CheckSteper == 3
-                          ? RegisterDetails
-                          : RegisterImage
+                          ? RegisterImage
+                          : RegisterForm
                 "
             />
+
             <AuthCarousel />
         </div>
     </div>

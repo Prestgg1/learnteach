@@ -88,19 +88,28 @@ const onFormSubmit = async ({ valid }) => {
             initialValues.last_name,
             initialValues.about,
         );
-        const response = await $fetch(
-            "http://127.0.0.1:8000/api/auth/register/create",
-            {
-                method: "POST",
-                body: JSON.stringify(useRegisterStore().AllData),
-            },
-        );
-        console.log(response);
-        toast.add({
-            severity: "success",
-            summary: "Məlumatlarınız daxil edildi.",
-            life: 3000,
-        });
+        try {
+            const response = await $fetch(
+                "http://127.0.0.1:8000/api/auth/register/create",
+                {
+                    method: "POST",
+                    body: JSON.stringify(useRegisterStore().AllData),
+                },
+            );
+            toast.add({
+                severity: "success",
+                summary: "Məlumatlarınız daxil edildi.",
+                life: 3000,
+            });
+
+            useRegisterStore().steper();
+        } catch (error) {
+            toast.error({
+                severity: "error",
+                summary: "Məlumatlarınız daxil edilmedi.",
+                life: 3000,
+            });
+        }
     }
 };
 </script>

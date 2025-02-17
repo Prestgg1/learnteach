@@ -5,8 +5,12 @@
     </div>
     <Toast />
 
-    <div class="flex flex-col flex-1 md:flex-initial justify-center items-center w-11/12 md:w-1/2">
-        <div class="loginForm h-[600px] gap-4  flex flex-col md:flex-row bg-white bg-opacity-15 rounded-3xl p-5">
+    <div
+        class="flex flex-col flex-1 md:flex-initial justify-center items-center w-11/12 md:w-1/2"
+    >
+        <div
+            class="loginForm h-[600px] gap-4 flex flex-col md:flex-row bg-white bg-opacity-15 rounded-3xl p-5"
+        >
             <!-- Form Kısmı -->
             <Form
                 v-slot="$form"
@@ -32,8 +36,9 @@
                         severity="error"
                         size="small"
                         variant="simple"
-                    >{{ $form.email.error?.message }}</Message>
-                    
+                        >{{ $form.email.error?.message }}</Message
+                    >
+
                     <FloatLabel variant="in" class="">
                         <InputText
                             id="password"
@@ -50,7 +55,8 @@
                         severity="error"
                         size="small"
                         variant="simple"
-                    >{{ $form.password.error?.message }}</Message>
+                        >{{ $form.password.error?.message }}</Message
+                    >
                 </div>
 
                 <Button
@@ -63,9 +69,8 @@
             </Form>
 
             <!-- Carousel Kısmı -->
-            
-                <AuthCarousel />
-            
+
+            <AuthCarousel />
         </div>
     </div>
 </template>
@@ -103,7 +108,7 @@ const isLoading = ref(false);
 // Form gönderildiğinde çalışacak fonksiyon
 const onFormSubmit = async ({ valid, values }) => {
     if (valid) {
-        isLoading.value = true; // Loading başlatılıyor
+        isLoading.value = true;
         try {
             const credentials = {
                 email: values.email,
